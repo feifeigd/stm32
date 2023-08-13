@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>StdPeriph_Driver\inc;User</IncludePath>
+              <IncludePath>StdPeriph_Driver\inc;User;..\stmcpp</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -385,11 +385,6 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>stm32f10x_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\User\stm32f10x_conf.h</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\User\stm32f10x_it.c</FilePath>
@@ -403,6 +398,56 @@
               <FileName>main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\User\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\stm32f10x_conf.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>stmcpp</GroupName>
+          <Files>
+            <File>
+              <FileName>Application.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\stmcpp\Application.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Application.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\stmcpp\Application.h</FilePath>
+            </File>
+            <File>
+              <FileName>Gpio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\stmcpp\Gpio.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\stmcpp\Gpio.h</FilePath>
+            </File>
+            <File>
+              <FileName>README.md</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\stmcpp\README.md</FilePath>
+            </File>
+            <File>
+              <FileName>device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\stmcpp\device.h</FilePath>
+            </File>
+            <File>
+              <FileName>Led.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\stmcpp\Led.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\stmcpp\Led.h</FilePath>
             </File>
           </Files>
         </Group>

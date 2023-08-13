@@ -1,44 +1,63 @@
 
 
-#include "stm32f10x_conf.h"
+#include <Application.h>
+#include <Led.h>
 
 void Delay(u32 count);
 void LED_Cfg(void);
 
-int main(void){
-	GPIO_InitTypeDef GPIO_InitStructure;	// gpio 初始化参数
-	// GPIO 挂载在APB2 总线上，打开端口A和端口D时钟
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOA, ENABLE);
-	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	// 推挽输出模式
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	// 设置IO口速度
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;	// 要初始化的IO口
-	GPIO_Init(GPIOA, &GPIO_InitStructure);	// GPIO 组 
-	GPIO_SetBits(GPIOA, GPIO_Pin_8);
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-	GPIO_Init(GPIOD, &GPIO_InitStructure);
-	GPIO_SetBits(GPIOD, GPIO_Pin_2);
-	
-	while(1){
-		GPIO_ResetBits(GPIOA, GPIO_Pin_8);	// 设置为低电平		
-		GPIO_SetBits(GPIOD, GPIO_Pin_2);	// 设置为高电平
-		Delay(3000000);
+// 3个G 正常
+// 2个3.3V 正常
+// 5V 正常
+// VB，R 未测试
+
+// B0~B1, B5 ~ B15 亮
+
+
+// B3 B4 不亮
+// A15 不亮
+// 参考 STM32F103 使用PA15 PB4 PB3作为普通IO方法
+// 可以点亮 https://blog.csdn.net/weixin_41667051/article/details/86504127
+
+// A0 ~ A12 亮
+
+// C13~C15 亮
+
+#define TEST_CLOCK	RCC_APB2Periph_GPIOA
+#define TEST_PORT 	GPIOA
+#define TEST_PIN 	GPIO_Pin_15
+
+#define LED_ON app.led.On()
+#define LED_OFF app.led.Off()
+
+class Application: stmcpp::Application{
+public:
 		
-		GPIO_SetBits(GPIOA, GPIO_Pin_8);// 设置为高电平
-		GPIO_ResetBits(GPIOA, GPIO_Pin_2);// 设置为低电平
+	virtual bool init() override{
+		led = stmcpp::Led{TEST_CLOCK, TEST_PORT, TEST_PIN, GPIO_Mode_Out_PP, GPIO_Speed_50MHz};
+		led.Init();
+		return true;
+	};
+	
+	stmcpp::Led led;
+};
+
+int main(void){
+	Application app;
+	app.init();
+	
+	while(1){		
+		
+	LED_OFF;
 		Delay(3000000);
+	LED_ON;
+		Delay(3000000);		
 	}
+
 	return 0;
 }
 
 void Delay(u32 count){
 	u32 i = 0;
 	for(; i < count; ++i);
-}
-
-void LED_Cfg(void){
-	/*GPIO_InitTypeDef led_gpio;*/
-	
 }
