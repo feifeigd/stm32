@@ -14,10 +14,9 @@ void Gpio::Init(){
     if((RCC_APB2Periph_GPIOA == RCC_APB2Periph_ && pin_ == GPIO_Pin_15) 
     || (RCC_APB2Periph_GPIOB == RCC_APB2Periph_ && (pin_ == GPIO_Pin_3 || pin_ == GPIO_Pin_4) )){
         disable_jtag = true;
-    }
-    if(disable_jtag){
         RCC_APB2Periph_ |= RCC_APB2Periph_AFIO;
     }
+		
     Enable();
     if(disable_jtag){
         GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);

@@ -17,6 +17,7 @@ namespace stmcpp{
 
         void Init();
 
+        // 开启 I/O 端口时钟
         void Enable(){
             RCC_APB2PeriphClockCmd(RCC_APB2Periph_, ENABLE);
         }
@@ -31,6 +32,10 @@ namespace stmcpp{
 
         void ResetBit(){            
             GPIO_ResetBits(GPIOx_, pin_);
+        }
+
+        void Toggle(){
+            GPIOx_->ODR ^= pin_;
         }
     };
 }

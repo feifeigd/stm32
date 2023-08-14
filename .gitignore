@@ -2,3 +2,7 @@ DebugConfig/
 Listings/
 Objects/
 RTE/
+
+*.uvgui.*
+*.uvguix.*
+*.uvoptx

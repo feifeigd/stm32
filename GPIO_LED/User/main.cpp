@@ -1,9 +1,9 @@
 
 
 #include <Application.h>
+#include <Delay.h>
 #include <Led.h>
 
-void Delay(u32 count);
 void LED_Cfg(void);
 
 // 3个G 正常
@@ -48,16 +48,13 @@ int main(void){
 	
 	while(1){		
 		
-	LED_OFF;
-		Delay(3000000);
-	LED_ON;
-		Delay(3000000);		
+	// LED_OFF;
+	// 	Delay(3000000);
+	// LED_ON;
+	// 	Delay(3000000);
+		app.led.Toggle();
+		Delay::ms(500);			
 	}
 
 	return 0;
-}
-
-void Delay(u32 count){
-	u32 i = 0;
-	for(; i < count; ++i);
 }
