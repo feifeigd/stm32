@@ -1,10 +1,8 @@
 
-
 #include <Application.h>
 #include <Delay.h>
 #include <Led.h>
-
-void LED_Cfg(void);
+#include <Usart.h>
 
 // 3个G 正常
 // 2个3.3V 正常
@@ -45,15 +43,11 @@ public:
 int main(void){
 	Application app;
 	app.init();
-	
-	while(1){		
-		
-	// LED_OFF;
-	// 	Delay(3000000);
-	// LED_ON;
-	// 	Delay(3000000);
+	Usart::init(9600);
+	while(1){
 		app.led.Toggle();
-		Delay::ms(500);			
+		Delay::ms(500);
+		Usart::update();		
 	}
 
 	return 0;
