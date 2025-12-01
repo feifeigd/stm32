@@ -6,3 +6,4 @@ RTE/
 *.uvgui.*
 *.uvguix.*
 *.uvoptx
+build/
