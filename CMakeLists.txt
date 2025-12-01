@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
+# 设置CMP0123策略，抑制ARMClang cpu/arch标志警告
+cmake_policy(SET CMP0123 NEW)
+
 set(CMAKE_TOOLCHAIN_FILE ./toolchain.cmake)
 project(stm32)
 #include(./toolchain.cmake)
