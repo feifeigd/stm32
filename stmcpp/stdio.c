@@ -1,27 +1,21 @@
 
 #include "Usart.h"
 
-
 #include <stdio.h>
 
-//#pragma import(__use_no_semihosting)
-
-struct FILE{
-    int handle;
-};
-
-FILE __stdout;
-
-// 定义_sys_exit()以避免使用半主机模式   
-// void _sys_exit(int x){
-//     x = x;
-// }
-
-// 重定义 fputc 函数
+// 重定义 fputc 函数，用于将printf输出重定向到串口
+// 需要勾选 use MicroLIB, 否则printf 会卡死. 
+// 但是这个时候编译会有警告, 而且C++的有些东西用不了了, 不可以 #include <iostream>
 int fputc(int ch, FILE* f){
-    while(0 == (USART1->SR & 0x40)); // 循环发送，直到发送完毕
-    USART1->DR = (u8)ch;
+	while(USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);// 循环发送，直到发送完毕
+	USART_SendData(USART1, ch);
     return ch;
+}
+
+// 定义_sys_exit()以避免使用半主机模式
+void _sys_exit(int x){
+    (void)x;
+    while(1);
 }
 
 
@@ -53,7 +47,6 @@ void USART1_IRQHandler(){
                     if(USART_RX_STA > (USART_REC_LEN - 1))USART_RX_STA = 0;//接收数据错误,重新开始接收
                 }
             }
-
         }
     }
 }

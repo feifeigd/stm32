@@ -25,6 +25,7 @@ void Usart::init(u32 bound){
     PA_10.Init();
 
     // NVIC 配置
+	// 嵌套向量中断控制器(Nested Vectored Interrupt Controller)
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 
     NVIC_InitTypeDef NVIC_InitStructure{};
@@ -53,11 +54,11 @@ void Usart::update(){
     if(USART_RX_STA & 0x8000){  // 接收完成
         len = USART_RX_STA & 0x3fff; 
         printf("what you send are len=%d, USART_RX_STA=0x%x:\r\n", len, USART_RX_STA);
-		// USART_RX_BUF[len] = 0;
+		USART_RX_BUF[len] = 0;
         for(int t = 0; t < len; ++t){
-            // fputc( USART_RX_BUF[t], &__stdout);
-            USART1->DR = USART_RX_BUF[t];
-            while ((USART1->SR & 0x40) == 0)
+			USART_SendData(USART1, USART_RX_BUF[t]);
+            
+            while(USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
             {
                 // 等待发送结束
             }            
@@ -65,8 +66,8 @@ void Usart::update(){
         printf("\r\n\r\n");
         USART_RX_STA = 0;
     }else{
-        ++times;
-        if(times % 200)printf("please input data, and press enter .\r\n\r\n");
-        Delay::ms(1000);
+//        ++times;
+//        if(times % 200)printf("please input data, and press enter .\r\n\r\n");
+//        Delay::ms(1000);
     }
 }

@@ -3,8 +3,15 @@ cmake_minimum_required(VERSION 3.10)
 # 设置CMP0123策略，抑制ARMClang cpu/arch标志警告
 cmake_policy(SET CMP0123 NEW)
 
+# 设置交叉编译工具链
 set(CMAKE_TOOLCHAIN_FILE ./toolchain.cmake)
+
+# 设置项目名称
 project(stm32)
+
+# 明确指定编译器命令行，包含所有必要的包含路径
+set(CMAKE_C_COMPILE_OBJECT "${CMAKE_C_COMPILER} -c <SOURCE> -o <OBJECT> --target=arm-arm-none-eabi -march=armv7-m -mcpu=cortex-m3 -O0 -g -I${CMAKE_CURRENT_SOURCE_DIR} -I${PACKS_PATH}/ARM/CMSIS/5.9.0/CMSIS/Core/Include -I${PACKS_PATH}/Keil/STM32F1xx_DFP/2.4.1/Device/Include -I${PACKS_PATH}/Keil/STM32F1xx_DFP/2.4.1/Device/StdPeriph_Driver/inc -I${CMAKE_CURRENT_SOURCE_DIR}/stmcpp -I${CMAKE_CURRENT_SOURCE_DIR}/GPIO_LED/User")
+set(CMAKE_CXX_COMPILE_OBJECT "${CMAKE_CXX_COMPILER} -c <SOURCE> -o <OBJECT> --target=arm-arm-none-eabi -march=armv7-m -mcpu=cortex-m3 -O0 -g -I${CMAKE_CURRENT_SOURCE_DIR} -I${PACKS_PATH}/ARM/CMSIS/5.9.0/CMSIS/Core/Include -I${PACKS_PATH}/Keil/STM32F1xx_DFP/2.4.1/Device/Include -I${PACKS_PATH}/Keil/STM32F1xx_DFP/2.4.1/Device/StdPeriph_Driver/inc -I${CMAKE_CURRENT_SOURCE_DIR}/stmcpp -I${CMAKE_CURRENT_SOURCE_DIR}/GPIO_LED/User")
 #include(./toolchain.cmake)
 set(PACKS_PATH C:/Users/Administrator/AppData/Local/Arm/Packs)
 

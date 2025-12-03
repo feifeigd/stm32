@@ -90,14 +90,26 @@ public:
 	stmcpp::Led led;
 };
 
+
+#include <cstdio> // printf
+//#include <iostream>
+#include <vector>
 int main(void){
 	Application app;
 	app.init();
-	//Usart::init(9600);
+		
+	Usart::init(9600);
+	auto v = new std::vector<int>{00};
+	delete v;
+	// 发送欢迎信息
+	char welcome[] = "STM32F103C8T6 Serial Test\r\n";
+	printf("%s", welcome);
+	
 	while(1){
+		// 闪烁LED，指示系统运行
 		app.led.Toggle();
 		Delay::ms(500);
-		//Usart::update();		// 这里有问题，打开这个 灯不亮
+		Usart::update();		
 	}
 
 	return 0;
