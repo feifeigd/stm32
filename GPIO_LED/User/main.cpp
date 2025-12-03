@@ -21,9 +21,59 @@
 
 // C13~C15 亮
 
-#define TEST_CLOCK	RCC_APB2Periph_GPIOA
-#define TEST_PORT 	GPIOA
-#define TEST_PIN 	GPIO_Pin_15
+/*
+STM32F103C8T6 核心板双排管脚测试:
+
+P3
+ 1 VBAT   未测试
+ 2 PC13   亮
+ 3 PC14   亮
+ 4 PC15   亮
+ 5 PA0    亮
+ 6 PA1    亮
+ 7 PA2    亮
+ 8 PA3    亮
+ 9 PA4    亮
+10 PA5    亮
+11 PA6    亮
+12 PA7    亮
+13 PB0    亮
+14 PB1    亮
+15 PB10   亮
+16 PB11   亮
+17 NRST   未测试
+18 VCC3V3 正常
+19 GND    正常
+20 GND    正常
+
+P4
+ 1 VC3V3 正常
+ 2 GND   正常
+ 3 5V    正常
+ 4 PB9   亮
+ 5 PB8   亮
+ 6 PB7   亮
+ 7 PB6   亮
+ 8 PB5   亮
+ 9 PB4   亮
+10 PB3   亮
+11 PA15  可以，要做引脚重映射
+12 PA12  亮
+13 PA11  亮
+14 PA10  亮
+15 PA9   亮
+16 PA8   亮
+17 PB15  亮
+18 PB14  亮
+19 PB13  亮
+20 PB12  亮
+
+*/
+
+#define TEST_CLOCK	RCC_APB2Periph_GPIOC
+#define TEST_PORT 	GPIOC
+#define TEST_PIN 	GPIO_Pin_13
+
 
 #define LED_ON app.led.On()
 #define LED_OFF app.led.Off()
@@ -43,11 +93,11 @@ public:
 int main(void){
 	Application app;
 	app.init();
-	Usart::init(9600);
+	//Usart::init(9600);
 	while(1){
 		app.led.Toggle();
 		Delay::ms(500);
-		Usart::update();		
+		//Usart::update();		// 这里有问题，打开这个 灯不亮
 	}
 
 	return 0;
