@@ -53,7 +53,7 @@ void Usart::init(u32 bound){
 void Usart::update(){
     if(USART_RX_STA & 0x8000){  // 接收完成
         len = USART_RX_STA & 0x3fff; 
-        printf("what you send are len=%d, USART_RX_STA=0x%x:\r\n", len, USART_RX_STA);
+        xprintf("what you send are len=%d, USART_RX_STA=0x%x:\r\n", len, USART_RX_STA);
 		USART_RX_BUF[len] = 0;
         for(int t = 0; t < len; ++t){
 			USART_SendData(USART1, USART_RX_BUF[t]);
@@ -63,11 +63,11 @@ void Usart::update(){
                 // 等待发送结束
             }            
         }
-        printf("\r\n\r\n");
+        xprintf("\r\n\r\n");
         USART_RX_STA = 0;
     }else{
 //        ++times;
-//        if(times % 200)printf("please input data, and press enter .\r\n\r\n");
+//        if(times % 200)xprintf("please input data, and press enter .\r\n\r\n");
 //        Delay::ms(1000);
     }
 }

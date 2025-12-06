@@ -4,7 +4,10 @@
 
 #define USART_REC_LEN 200 //定义最大接收字节数 200
 
+
 #ifdef __cplusplus
+
+extern "C" void xprintf(char const* fmt, ...);
 
 class Usart{
 public:
